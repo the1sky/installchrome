@@ -15,11 +15,13 @@ if [ $? -eq 0 ]; then
     cd /tmp
     arch=`uname -m`
     if [ $arch == 'x86_64' ]; then
-        chrome_url=${base_url}${prefix}_amd64${suffix}
+        arch='_amd64'
     else
-        chrome_url=${base_url}${prefix}_i386${suffix}
+        arch='_i386'
     fi
+    chrome_url=${base_url}${prefix}${arch}${suffix}
     wget $chrome_url
+    chmod u+x ${prefix}${arch}${suffix}
     sudo dpkg -i google-chrome*
-    apt-get -f install
+    sudo apt-get -y -f install
 fi
